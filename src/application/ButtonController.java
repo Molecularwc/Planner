@@ -87,7 +87,7 @@ public class ButtonController{
 			else
 			{
 				//custom title, warning icon
-				JOptionPane.showMessageDialog(frame, "One or more time does not follow format: 11:11(a or p)",
+				JOptionPane.showMessageDialog(frame, "One or more times do not follow the format: " + "\n" + "1a|p, 11a|p, 1100a|p, 11:00a|p",
 				    "Validation Error",
 				    JOptionPane.WARNING_MESSAGE);
 			}
