@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextArea;
 
@@ -17,42 +20,26 @@ public class ButtonController{
 	JFrame frame = new JFrame();
 	
 	ArrayList<Appointment> appt = new ArrayList<>();
+	ArrayList<Appointment> days = new ArrayList<>();
 	Appointment mon = new Appointment();
 	Appointment tue = new Appointment();
 	Appointment wed = new Appointment();
 	Appointment thur = new Appointment();
 	Appointment fri = new Appointment();
 	
+	private static ValidTime validTime;
+	
+	public static void initialize()
+	{
+		validTime = new ValidTime();
+	}
+	
 	@FXML
-	Button submitMon;
+	Button submit;
 	@FXML
-	Button clearMon;
+	Button clear;
 	@FXML
-	Button openMon;
-	@FXML
-	Button submitTue;
-	@FXML
-	Button clearTue;
-	@FXML
-	Button openTue;
-	@FXML
-	Button submitWed;
-	@FXML
-	Button clearWed;
-	@FXML
-	Button openWed;
-	@FXML
-	Button submitThur;
-	@FXML
-	Button clearThur;
-	@FXML
-	Button openThur;
-	@FXML
-	Button submitFri;
-	@FXML
-	Button clearFri;
-	@FXML
-	Button openFri;	
+	Button open;	
 	@FXML
 	TextField txtMonTime;
 	@FXML
@@ -64,206 +51,132 @@ public class ButtonController{
 	@FXML
 	TextField txtFriTime;	
 	@FXML
-	TextArea txtMonApptDeets;
+	TextField txtMonApptDeets;
 	@FXML
-	TextArea txtTueApptDeets;
+	TextField txtTueApptDeets;
 	@FXML
-	TextArea txtWedApptDeets;
+	TextField txtWedApptDeets;
 	@FXML
-	TextArea txtThurApptDeets;
+	TextField txtThurApptDeets;
 	@FXML
-	TextArea txtFriApptDeets;
+	TextField txtFriApptDeets;
+	@FXML
+	TextArea monApptList;
+	@FXML
+	TextArea tueApptList;
+	@FXML
+	TextArea wedApptList;
+	@FXML
+	TextArea thurApptList;
+	@FXML
+	TextArea friApptList;
 	
-	//MONDAY CONTROLS
-	public void submitMonButtonClicked(ActionEvent btnClick) {
-		String validTime;
-		char validAOrP;
-		validTime = txtMonTime.getText().substring(0, 4);
-		validAOrP = txtMonTime.getText().charAt(4);
+	//SUBMIT CONTROLS
+	public void submitButtonClicked(ActionEvent btnClick) {
 		
-		if(ValidTime.checkTime(validTime) == true && ValidTime.checkTimeStamp(validAOrP) == true) {
-			mon.time = txtMonTime.getText();
-			mon.appointment = txtMonApptDeets.getText();
-			mon.day = DayOfTheWeek.MONDAY;
-			appt.add(mon);
-			//appt.forEach((n) -> System.out.println(n.time + "\n" + n.appointment + "\n" + n.day.toString()));
-		}else {
-			//custom title, warning icon
-			JOptionPane.showMessageDialog(frame, "The time must contain the following format: 1111(a or p)",
-			    "Validation Error",
-			    JOptionPane.WARNING_MESSAGE);
+		initialize();
+		
+		addDays();
+		
+		for(int i = 0; i < days.size(); i++)
+		{
+			if(validTime.checkTime(days.get(i).time) == true)
+			{
+				appt.add(days.get(i));
+			}
+			else
+			{
+				//custom title, warning icon
+				JOptionPane.showMessageDialog(frame, "One or more time does not follow format: 11:11(a or p)",
+				    "Validation Error",
+				    JOptionPane.WARNING_MESSAGE);
+			}
 		}
 		
 	}
 	
-	public void clearMonButtonClicked(ActionEvent btnClick) {
+	public void clearButtonClicked(ActionEvent btnClick) {
 		txtMonTime.clear();
 		txtMonApptDeets.clear();
-	}
-	
-	public void openMonButtonClicked(ActionEvent btnClick) {
-		for(int i = 0; i < appt.size(); i++)
-		{
-			if(appt.get(i).day == DayOfTheWeek.MONDAY)
-			{
-				txtMonTime.setText(appt.get(i).time);
-				txtMonApptDeets.setText(appt.get(i).appointment);
-			}
-		}
-		
-	}
-	
-	//TUESDAY CONTROLS
-	public void submitTueButtonClicked(ActionEvent btnClick) {
-		String validTime;
-		char validAOrP;
-		validTime = txtTueTime.getText().substring(0, 4);
-		validAOrP = txtTueTime.getText().charAt(4);
-		
-		if(ValidTime.checkTime(validTime) == true && ValidTime.checkTimeStamp(validAOrP) == true) {
-			tue.time = txtTueTime.getText();
-			tue.appointment = txtTueApptDeets.getText();
-			tue.day = DayOfTheWeek.TUESDAY;
-			appt.add(tue);
-			//appt.forEach((n) -> System.out.println(n.time + "\n" + n.appointment + "\n" + n.day.toString()));
-		}else {
-			//custom title, warning icon
-			JOptionPane.showMessageDialog(frame, "The time must contain the following format: 1111(a or p)",
-			    "Validation Error",
-			    JOptionPane.WARNING_MESSAGE);
-		}
-	}
-	
-	public void clearTueButtonClicked(ActionEvent btnClick) {
+		monApptList.clear();
 		txtTueTime.clear();
 		txtTueApptDeets.clear();
-	}
-	
-	public void openTueButtonClicked(ActionEvent btnClick) {
-		for(int i = 0; i < appt.size(); i++)
-		{
-			if(appt.get(i).day == DayOfTheWeek.TUESDAY)
-			{
-				txtTueTime.setText(appt.get(i).time);
-				txtTueApptDeets.setText(appt.get(i).appointment);
-			}
-		}
-		
-	}
-
-	//WEDNESDAY CONTROLS
-	public void submitWedButtonClicked(ActionEvent btnClick) {
-		String validTime;
-		char validAOrP;
-		validTime = txtWedTime.getText().substring(0, 4);
-		validAOrP = txtWedTime.getText().charAt(4);
-		
-		if(ValidTime.checkTime(validTime) == true && ValidTime.checkTimeStamp(validAOrP) == true) {
-			wed.time = txtWedTime.getText();
-			wed.appointment = txtWedApptDeets.getText();
-			wed.day = DayOfTheWeek.WEDNESDAY;
-			appt.add(wed);
-			//appt.forEach((n) -> System.out.println(n.time + "\n" + n.appointment + "\n" + n.day.toString()));
-		}else {
-			//custom title, warning icon
-			JOptionPane.showMessageDialog(frame, "The time must contain the following format: 1111(a or p)",
-			    "Validation Error",
-			    JOptionPane.WARNING_MESSAGE);
-		}	
-	}
-	
-	public void clearWedButtonClicked(ActionEvent btnClick) {
+		tueApptList.clear();
 		txtWedTime.clear();
 		txtWedApptDeets.clear();
-	}
-	
-	public void openWedButtonClicked(ActionEvent btnClick) {
-		for(int i = 0; i < appt.size(); i++)
-		{
-			if(appt.get(i).day == DayOfTheWeek.WEDNESDAY)
-			{
-				txtWedTime.setText(appt.get(i).time);
-				txtWedApptDeets.setText(appt.get(i).appointment);
-			}
-		}
-		
-	}
-	
-	//THURSDAY CONTROLS
-	public void submitThurButtonClicked(ActionEvent btnClick) {
-		String validTime;
-		char validAOrP;
-		validTime = txtThurTime.getText().substring(0, 4);
-		validAOrP = txtThurTime.getText().charAt(4);
-		
-		if(ValidTime.checkTime(validTime) == true && ValidTime.checkTimeStamp(validAOrP) == true) {
-			thur.time = txtThurTime.getText();
-			thur.appointment = txtThurApptDeets.getText();
-			thur.day = DayOfTheWeek.THURSDAY;
-			appt.add(thur);
-			//appt.forEach((n) -> System.out.println(n.time + "\n" + n.appointment + "\n" + n.day.toString()));
-		}else {
-			//custom title, warning icon
-			JOptionPane.showMessageDialog(frame, "The time must contain the following format: 1111(a or p)",
-			    "Validation Error",
-			    JOptionPane.WARNING_MESSAGE);
-		}
-	}
-	
-	public void clearThurButtonClicked(ActionEvent btnClick) {
+		wedApptList.clear();
 		txtThurTime.clear();
 		txtThurApptDeets.clear();
-	}
-	
-	public void openThurButtonClicked(ActionEvent btnClick) {
-		for(int i = 0; i < appt.size(); i++)
-		{
-			if(appt.get(i).day == DayOfTheWeek.THURSDAY)
-			{
-				txtThurTime.setText(appt.get(i).time);
-				txtThurApptDeets.setText(appt.get(i).appointment);
-			}
-		}
-		
-	}
-	
-	//FRIDAY CONTROLS
-	public void submitFriButtonClicked(ActionEvent btnClick) {
-		String validTime;
-		char validAOrP;
-		validTime = txtFriTime.getText().substring(0, 4);
-		validAOrP = txtFriTime.getText().charAt(4);
-		
-		if(ValidTime.checkTime(validTime) == true && ValidTime.checkTimeStamp(validAOrP) == true) {
-			fri.time = txtFriTime.getText();
-			fri.appointment = txtFriApptDeets.getText();
-			fri.day = DayOfTheWeek.FRIDAY;
-			appt.add(fri);
-			//appt.forEach((n) -> System.out.println(n.time + "\n" + n.appointment + "\n" + n.day.toString()));
-		}else {
-			//custom title, warning icon
-			JOptionPane.showMessageDialog(frame, "The time must contain the following format: 1111(a or p)",
-			    "Validation Error",
-			    JOptionPane.WARNING_MESSAGE);
-		}
-	}
-	
-	public void clearFriButtonClicked(ActionEvent btnClick) {
+		thurApptList.clear();
 		txtFriTime.clear();
 		txtFriApptDeets.clear();
+		friApptList.clear();
 	}
 	
-	public void openFriButtonClicked(ActionEvent btnClick) {
+	public void openButtonClicked(ActionEvent btnClick) {
 		for(int i = 0; i < appt.size(); i++)
-		{
-			if(appt.get(i).day == DayOfTheWeek.FRIDAY)
+		{			
+			switch(appt.get(i).day)
 			{
-				txtFriTime.setText(appt.get(i).time);
-				txtFriApptDeets.setText(appt.get(i).appointment);
+				case MONDAY:
+					monApptList.setText(appt.get(i).apptList.toString());
+					txtMonTime.setText(appt.get(i).time);
+					txtMonApptDeets.setText(appt.get(i).appointment);
+					continue;
+				case TUESDAY:
+					tueApptList.setText(appt.get(i).apptList.toString());
+					txtTueTime.setText(appt.get(i).time);
+					txtTueApptDeets.setText(appt.get(i).appointment);
+					continue;
+				case WEDNESDAY:
+					wedApptList.setText(appt.get(i).apptList.toString());
+					txtWedTime.setText(appt.get(i).time);
+					txtWedApptDeets.setText(appt.get(i).appointment);
+					continue;
+				case THURSDAY:
+					thurApptList.setText(appt.get(i).apptList.toString());
+					txtThurTime.setText(appt.get(i).time);
+					txtThurApptDeets.setText(appt.get(i).appointment);
+					continue;
+				case FRIDAY:
+					friApptList.setText(appt.get(i).apptList.toString());
+					txtFriTime.setText(appt.get(i).time);
+					txtFriApptDeets.setText(appt.get(i).appointment);
+					continue;
 			}
-		}
-		
+		}		
 	}
 	
-
+	public void addDays()
+	{
+		mon.time = txtMonTime.getText();
+		mon.appointment = txtMonApptDeets.getText();
+		mon.apptList.add(mon.time + " - " + mon.appointment + "\n");
+		mon.day = DayOfTheWeek.MONDAY;
+		days.add(mon);
+		
+		tue.time = txtTueTime.getText();
+		tue.appointment = txtTueApptDeets.getText();
+		tue.apptList.add(tue.time + " - " + tue.appointment + "\n");
+		tue.day = DayOfTheWeek.TUESDAY;
+		days.add(tue);
+		
+		wed.time = txtWedTime.getText();
+		wed.appointment = txtWedApptDeets.getText();
+		wed.apptList.add(wed.time + " - " + wed.appointment + "\n");
+		wed.day = DayOfTheWeek.WEDNESDAY;
+		days.add(wed);
+		
+		thur.time = txtThurTime.getText();
+		thur.appointment = txtThurApptDeets.getText();
+		thur.apptList.add(thur.time + " - " + thur.appointment + "\n");
+		thur.day = DayOfTheWeek.THURSDAY;
+		days.add(thur);
+		
+		fri.time = txtFriTime.getText();
+		fri.appointment = txtFriApptDeets.getText();
+		fri.apptList.add(fri.time + " - " + fri.appointment + "\n");
+		fri.day = DayOfTheWeek.FRIDAY;		
+		days.add(fri);
+	}
 }
