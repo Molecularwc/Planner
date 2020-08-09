@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<HBox id="plan" fx:id="plan" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="725.0" style="-fx-border-style: solid; -fx-border-width: 2; -fx-border-color: black;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ButtonController">
+   <children>
+	   <VBox id="planBox" fx:id="planBox" prefHeight="250.0" prefWidth="725.0">
+		   <children>
+			   <HBox id="plannerArea" fx:id="plannerArea" prefHeight="300.0" prefWidth="725.0">
+			   		<children>
+				   		<VBox id="mon" fx:id="mon" prefHeight="300.0" prefWidth="145.0" style="-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: black;">
+				         <children>
+				            <Label id="lblMon" fx:id="lblMon" text="Monday" />
+				            <Label id="lblTime" fx:id="lblTime" text="Time" />
+				            <TextField id="txtMonTime" fx:id="txtMonTime" style="-fx-border-style: solid; -fx-border-color: black;" />
+				            <Label id="lblApptDeets" fx:id="lblApptDeets" text="Appt Details" />
+				            <TextField id="txtMonApptDeets" fx:id="txtMonApptDeets" style="-fx-border-style: solid; -fx-border-color: black;" />
+                        	<TextArea id="monApptList" fx:id="monApptList" prefHeight="200.0" prefWidth="145.0" wrapText="true" />                        	
+				         </children>
+				      </VBox>
+				      <VBox id="tue" fx:id="tue" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="145.0" style="-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: black;">
+				         <children>
+				            <Label id="lblTue" fx:id="lblTue" text="Tuesday" />
+				            <Label id="lblTime" fx:id="lblTime1" text="Time" />
+				            <TextField id="txtTueTime" fx:id="txtTueTime" style="-fx-border-style: solid; -fx-border-color: black;" />
+				            <Label id="lblApptDeets" fx:id="lblApptDeets1" text="Appt Details" />
+				            <TextField id="txtTueApptDeets" fx:id="txtTueApptDeets" style="-fx-border-style: solid; -fx-border-color: black;" />
+                        	<TextArea id="tueApptList" fx:id="tueApptList" prefHeight="200.0" prefWidth="145.0" wrapText="true" />                        	
+				         </children>
+				      </VBox>
+				      <VBox id="wed" fx:id="wed" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="145.0" style="-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: black;">
+				         <children>
+				            <Label id="lblWed" fx:id="lblWed" text="Wednesday" />
+				            <Label id="lblTime" fx:id="lblTime2" text="Time" />
+				            <TextField id="txtWedTime" fx:id="txtWedTime" style="-fx-border-style: solid; -fx-border-color: black;" />
+				            <Label id="lblApptDeets" fx:id="lblApptDeets2" text="Appt Details" />
+				            <TextField id="txtWedApptDeets" fx:id="txtWedApptDeets" style="-fx-border-style: solid; -fx-border-color: black;" />
+                        	<TextArea id="wedApptList" fx:id="wedApptList" prefHeight="200.0" prefWidth="145.0" wrapText="true" />                        	
+				         </children>
+				      </VBox>
+				      <VBox id="thur" fx:id="thur" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="145.0" style="-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: black;">
+				         <children>
+				            <Label id="lblThur" fx:id="lblThur" text="Thursday" />
+				            <Label id="lblTime" fx:id="lblTime3" text="Time" />
+				            <TextField id="txtThurTime" fx:id="txtThurTime" style="-fx-border-style: solid; -fx-border-color: black;" />
+				            <Label id="lblApptDeets" fx:id="lblApptDeets3" text="Appt Details" />
+				            <TextField id="txtThurApptDeets" fx:id="txtThurApptDeets" style="-fx-border-style: solid; -fx-border-color: black;" />
+                        	<TextArea id="thurApptList" fx:id="thurApptList" prefHeight="200.0" prefWidth="145.0" wrapText="true" />                        	
+				         </children>
+				      </VBox>
+				      <VBox id="fri" fx:id="fri" layoutX="10.0" layoutY="10.0" prefHeight="200.0" prefWidth="145.0" style="-fx-border-style: solid; -fx-border-width: 1; -fx-border-color: black;">
+				         <children>
+				            <Label id="lblFri" fx:id="lblFri" text="Friday" />
+				            <Label id="lblTime" fx:id="lblTime4" text="Time" />
+				            <TextField id="txtFriTime" fx:id="txtFriTime" style="-fx-border-style: solid; -fx-border-color: black;" />
+				            <Label id="lblApptDeets" fx:id="lblApptDeets4" text="Appt Details" />
+				            <TextField id="txtFriApptDeets" fx:id="txtFriApptDeets" style="-fx-border-style: solid; -fx-border-color: black;" />
+                        	<TextArea id="friApptList" fx:id="friApptList" prefHeight="200.0" prefWidth="145.0" wrapText="true" />                        	
+				         </children>
+				      </VBox>
+			   		</children>
+			   </HBox>
+			   <HBox id="buttonArea" fx:id="buttonArea" alignment="CENTER" prefHeight="50.0" prefWidth="725.0" spacing="50.0">
+				   <children>
+				   		<Button id="submit" fx:id="submit" alignment="CENTER" mnemonicParsing="false" onAction="#submitButtonClicked" style="-fx-border-style: solid;" text="Submit" />
+				        <Button id="clear" fx:id="clear" alignment="CENTER" mnemonicParsing="false" onAction="#clearButtonClicked" style="-fx-border-style: solid;" text="Clear" />
+				        <Button id="open" fx:id="open" alignment="CENTER" mnemonicParsing="false" onAction="#openButtonClicked" style="-fx-border-style: solid;" text="Open" />
+				   </children>
+			   </HBox>
+		   </children>
+	   </VBox>
+   </children>
+</HBox>
